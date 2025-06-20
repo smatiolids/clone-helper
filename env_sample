@@ -1,0 +1,5 @@
+ENVIRONMENT=dev|prod|p0c0|test
+SOURCE_DB_ID=
+TARGET_DB_ID=
+ASTRA_TOKEN=<Organization admin token>
+
