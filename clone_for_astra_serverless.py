@@ -72,8 +72,8 @@ def remove_db_keyspace(host, token, db_id, keyspace_name):
     headers = {"Authorization": f"Bearer {token}"}
     resp = requests.delete(remove_url, headers=headers)
     if resp.status_code >= 300:
-        print(f"Error: Failed to remove the keyspace: {resp.text}", file=sys.stderr)
-        return resp.status_code
+        print(f"Error: Failed to remove the keyspace: {resp.status_code} - {resp.text}", file=sys.stderr)
+        return f"Error: Failed to remove the keyspace: {resp.status_code} - {resp.text}"
     return f"Keyspace {keyspace_name} removed successfully. Status code: {resp.status_code} - {resp.text}"
 
 
