@@ -71,10 +71,10 @@ def remove_db_keyspace(host, token, db_id, keyspace_name):
     remove_url = f"{host}/v2/databases/{db_id}/keyspaces/{keyspace_name}"
     headers = {"Authorization": f"Bearer {token}"}
     resp = requests.delete(remove_url, headers=headers)
-    if resp.status_code != 200:
+    if resp.status_code >= 300:
         print(f"Error: Failed to remove the keyspace: {resp.text}", file=sys.stderr)
-        return resp.json()
-    return resp.json()
+        return resp.status_code
+    return f"Keyspace {keyspace_name} removed successfully. Status code: {resp.status_code} - {resp.text}"
 
 
 def start_clone_operation(host, token, source_db_id, target_db_id, snapshot_id):
@@ -136,7 +136,7 @@ def monitor_clone_status(host, token, source_db_id, operation_id):
                 print("Clone operation completed successfully.")
                 break
 
-            time.sleep(60)
+            time.sleep(15)
     return status
 
 def help():
